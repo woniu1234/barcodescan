@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
         BGAQRCodeUtil.setDebug(BuildConfig.DEBUG);
         findViewById(R.id.bt_scan).setOnClickListener(new View.OnClickListener() {
             @Override
