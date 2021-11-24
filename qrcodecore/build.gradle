@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
-group = 'com.github.woniu1234'
 
 android {
     compileSdkVersion rootProject.sdkVersion
@@ -19,4 +19,20 @@ android {
 
 dependencies {
     api 'com.google.zxing:core:3.3.3'
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                artifact androidSourcesJar // optional sources
+            }
+        }
+    }
 }
