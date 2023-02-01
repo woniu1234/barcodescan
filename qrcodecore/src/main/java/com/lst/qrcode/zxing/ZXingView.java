@@ -102,10 +102,7 @@ public class ZXingView extends QRCodeView {
                     BGAQRCodeUtil.d("GlobalHistogramBinarizer 没识别到，HybridBinarizer 能识别到");
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            mMultiFormatReader.reset();
+        } catch (Exception ignored) {
         }
 
         if (rawResult == null) {
