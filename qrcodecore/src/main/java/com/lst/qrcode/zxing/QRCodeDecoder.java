@@ -161,14 +161,23 @@ public class QRCodeDecoder {
             source = new RGBLuminanceSource(width, height, pixels);
             result = new MultiFormatReader().decode(new BinaryBitmap(new HybridBinarizer(source)), ALL_HINT_MAP);
             return result.getText();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ep) {
             if (source != null) {
                 try {
-                    result = new MultiFormatReader().decode(new BinaryBitmap(new GlobalHistogramBinarizer(source)), ALL_HINT_MAP);
+                    result = new MultiFormatReader().decode(new BinaryBitmap(new HybridBinarizer(source.invert())), ALL_HINT_MAP);
                     return result.getText();
-                } catch (Throwable e2) {
-                    e2.printStackTrace();
+                } catch (Exception e) {
+                    try {
+                        result = new MultiFormatReader().decode(new BinaryBitmap(new GlobalHistogramBinarizer(source)), ALL_HINT_MAP);
+                        return result.getText();
+                    } catch (Exception e2) {
+                        try {
+                            result = new MultiFormatReader().decode(new BinaryBitmap(new GlobalHistogramBinarizer(source.invert())), ALL_HINT_MAP);
+                            return result.getText();
+                        } catch (Exception e3) {
+                            e3.printStackTrace();
+                        }
+                    }
                 }
             }
             return null;
