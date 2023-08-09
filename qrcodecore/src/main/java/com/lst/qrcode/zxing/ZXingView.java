@@ -94,8 +94,15 @@ public class ZXingView extends QRCodeView {
             } else {
                 source = new PlanarYUVLuminanceSource(data, width, height, 0, 0, width, height, false);
             }
-
-            rawResult = mMultiFormatReader.decodeWithState(new BinaryBitmap(new GlobalHistogramBinarizer(source)));
+            try {
+                if (System.currentTimeMillis() % 1000 < 500) {
+                    rawResult = mMultiFormatReader.decodeWithState(new BinaryBitmap(new GlobalHistogramBinarizer(source.invert())));
+                } else {
+                    rawResult = mMultiFormatReader.decodeWithState(new BinaryBitmap(new GlobalHistogramBinarizer(source)));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (rawResult == null) {
                 rawResult = mMultiFormatReader.decodeWithState(new BinaryBitmap(new HybridBinarizer(source)));
                 if (rawResult != null) {

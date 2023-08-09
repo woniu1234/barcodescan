@@ -4,8 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.sdkVersion
-    buildToolsVersion rootProject.toolsVersion
+    compileSdk rootProject.sdkVersion
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
@@ -18,7 +17,7 @@ android {
 }
 
 dependencies {
-    api 'com.google.zxing:core:3.3.3'
+    api 'com.google.zxing:core:3.4.0'
 }
 
 task androidSourcesJar(type: Jar) {
